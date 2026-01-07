@@ -1,6 +1,6 @@
 {
   "name": "@townhall-gg/marquee-react",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "React bindings for @townhall-gg/marquee",
   "keywords": [
     "animation",
