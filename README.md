@@ -195,9 +195,38 @@ marquee.destroy(); // Clean up
 - The marquee component only supports a single child element. Wrap multiple elements in a container if needed.
 - The marquee automatically handles cleanup on unmount.
 - The component provides built-in styles for proper overflow handling and content positioning.
-- You are responsible for making the marquee cover the full width of its render area. This library **DOES NOT** auto-fill that space.
+
+### Auto-Fill Behavior
+
+When content is narrower than the container (e.g., a 200px wide list in a 1920px screen), the marquee automatically creates enough clones to fill at least 2× the container width. This prevents gaps during the animation loop.
+
+The number of clones is recalculated automatically when:
+- The content size changes
+- The container/viewport is resized
+
+### Layout Styles
+
+By default, the marquee applies these styles to the container element:
+- `display: flex`
+- `min-width: max-content`
+- `will-change: transform`
+
+If your existing CSS relies on the container being a `block` element or having a specific width, you can disable automatic style application:
+
+```ts
+// Core
+new Marquee(element, { applyStyles: false });
+
+// When using applyStyles: false, ensure your CSS includes:
+// .your-marquee-container {
+//   display: flex;
+//   min-width: max-content;
+// }
+```
 
 ## Accessibility
+
+### Reduced Motion
 
 The marquee automatically respects `prefers-reduced-motion`. When enabled, no animation occurs and content remains static.
 
@@ -206,6 +235,15 @@ You can override this:
 ```ts
 new Marquee(element, { reducedMotion: false });
 ```
+
+### Screen Readers
+
+The marquee creates a clone of your content for seamless looping. This cloned content is automatically:
+
+- Marked with `aria-hidden="true"` so screen readers don't read duplicate content
+- Stripped of all `id` attributes to prevent invalid duplicate IDs in the DOM
+
+The React component wraps the entire marquee in `aria-hidden="true"` by design, treating it as decorative content. If your marquee contains meaningful content, ensure it's also available elsewhere in an accessible format.
 
 ## Running the Demo
 

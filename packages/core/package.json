@@ -1,6 +1,6 @@
 {
   "name": "@townhall-gg/marquee",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Blazing-fast marquee using Web Animations API",
   "keywords": [
     "animation",

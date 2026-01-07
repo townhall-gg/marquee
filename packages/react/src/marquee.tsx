@@ -48,7 +48,7 @@ export interface MarqueeRef {
   getInstance: () => MarqueeInstance | null;
 }
 
-// Root container styles - matches JOYCO's overflow approach
+// Root container styles
 const rootStyles: CSSProperties = {
   overflowX: "clip",
   overflowY: "visible",

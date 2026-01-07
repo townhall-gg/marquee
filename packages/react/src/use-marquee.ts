@@ -13,7 +13,7 @@ export type UseMarqueeOptions = {
 };
 
 /**
- * Tuple return type matching JOYCO's API: [ref, marquee]
+ * Tuple return type: [ref, marquee]
  */
 export type UseMarqueeTuple = readonly [React.RefCallback<HTMLDivElement>, MarqueeInstance | null];
 

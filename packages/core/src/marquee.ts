@@ -16,6 +16,41 @@ function prefersReducedMotion(): boolean {
 }
 
 /**
+ * Sanitize a cloned element for marquee use:
+ * - Removes all id attributes to prevent duplicate IDs in the DOM
+ * - Adds aria-hidden="true" so screen readers don't read duplicate content
+ */
+function sanitizeClonedElement(element: HTMLElement): void {
+  // Hide from screen readers - it's a visual duplicate
+  element.setAttribute("aria-hidden", "true");
+
+  // Remove id from the clone itself
+  if (element.id) {
+    element.removeAttribute("id");
+  }
+
+  // Recursively remove id from all descendants
+  const elementsWithId = element.querySelectorAll("[id]");
+  elementsWithId.forEach((el) => {
+    el.removeAttribute("id");
+  });
+}
+
+/**
+ * Calculate how many clones are needed to fill at least 2x the container width.
+ * This prevents gaps when content is narrower than the container.
+ */
+function calculateRequiredClones(childWidth: number, containerWidth: number): number {
+  if (childWidth <= 0) return 1;
+  // We need total content width >= 2x container width for seamless looping
+  // Total width = childWidth * (1 + numClones), so numClones >= (2 * containerWidth / childWidth) - 1
+  const minTotalWidth = containerWidth * 2;
+  const numClones = Math.ceil(minTotalWidth / childWidth);
+  // At minimum, we need 1 clone for the seamless loop
+  return Math.max(1, numClones);
+}
+
+/**
  * Creates a high-performance marquee animation using Web Animations API
  *
  * @example
@@ -33,6 +68,7 @@ export function createMarquee(element: HTMLElement, options: MarqueeOptions = {}
     autoplay = true,
     reducedMotion = prefersReducedMotion(),
     autoClone = true,
+    applyStyles = true,
   } = options;
 
   // State
@@ -50,7 +86,7 @@ export function createMarquee(element: HTMLElement, options: MarqueeOptions = {}
   let childWidth = 0;
   let resizeObserver: ResizeObserver | null = null;
   let originalChild: HTMLElement | null = null;
-  let clonedChild: HTMLElement | null = null;
+  let clonedChildren: HTMLElement[] = [];
 
   /**
    * Start/restart the animation
@@ -106,7 +142,7 @@ export function createMarquee(element: HTMLElement, options: MarqueeOptions = {}
   }
 
   /**
-   * Set up resize observer
+   * Set up resize observer for both content and container
    */
   function setupResizeObserver(): void {
     if (!originalChild) return;
@@ -115,8 +151,18 @@ export function createMarquee(element: HTMLElement, options: MarqueeOptions = {}
       updateChildSize();
     });
 
+    // Observe content for size changes
     resizeObserver.observe(originalChild);
+
+    // Also observe container parent for viewport/layout changes
+    // This ensures we recalculate clones when container width changes
+    if (element.parentElement) {
+      resizeObserver.observe(element.parentElement);
+    }
   }
+
+  // Track container width to detect when we need to recalculate clones
+  let lastContainerWidth = 0;
 
   /**
    * Update child size and restart animation if needed
@@ -125,22 +171,52 @@ export function createMarquee(element: HTMLElement, options: MarqueeOptions = {}
     if (!originalChild || !state.isInitialized || !animation?.effect) return;
 
     const newWidth = originalChild.offsetWidth;
+    const containerWidth = element.parentElement?.offsetWidth || element.offsetWidth;
+    const containerChanged = containerWidth !== lastContainerWidth;
 
-    if (newWidth !== childWidth) {
+    if (newWidth !== childWidth || containerChanged) {
       const timing = animation.effect.getComputedTiming();
       childWidth = newWidth;
+      lastContainerWidth = containerWidth;
 
-      // Remove and recreate clone
-      if (clonedChild?.parentNode === element) {
-        element.removeChild(clonedChild);
-      }
-
+      // Recreate clones with new sizing
       if (autoClone) {
-        clonedChild = originalChild.cloneNode(true) as HTMLElement;
-        element.appendChild(clonedChild);
+        createClones();
       }
 
       start(state.direction, (timing.progress as number) ?? undefined);
+    }
+  }
+
+  /**
+   * Remove all cloned children from the DOM
+   */
+  function removeClones(): void {
+    for (const clone of clonedChildren) {
+      if (clone.parentNode === element) {
+        element.removeChild(clone);
+      }
+    }
+    clonedChildren = [];
+  }
+
+  /**
+   * Create clones to fill the container width for seamless looping
+   */
+  function createClones(): void {
+    if (!originalChild || !autoClone) return;
+
+    removeClones();
+
+    const contentWidth = originalChild.offsetWidth;
+    const containerWidth = element.parentElement?.offsetWidth || element.offsetWidth;
+    const numClones = calculateRequiredClones(contentWidth, containerWidth);
+
+    for (let i = 0; i < numClones; i++) {
+      const clone = originalChild.cloneNode(true) as HTMLElement;
+      sanitizeClonedElement(clone);
+      element.appendChild(clone);
+      clonedChildren.push(clone);
     }
   }
 
@@ -155,19 +231,20 @@ export function createMarquee(element: HTMLElement, options: MarqueeOptions = {}
 
     if (!originalChild) return;
 
-    // Auto-clone the child for seamless loop
+    // Set up styles first (can be disabled if user handles layout themselves)
+    if (applyStyles) {
+      element.style.willChange = "transform";
+      element.style.display = "flex";
+      element.style.minWidth = "max-content";
+    }
+
+    // Auto-clone the child for seamless loop (creates enough clones to fill container)
     if (autoClone) {
-      clonedChild = originalChild.cloneNode(true) as HTMLElement;
-      element.appendChild(clonedChild);
+      createClones();
     }
 
     childWidth = originalChild.offsetWidth;
     state.isInitialized = true;
-
-    // Set up styles
-    element.style.willChange = "transform";
-    element.style.display = "flex";
-    element.style.minWidth = "max-content";
 
     start(state.direction);
     setupResizeObserver();
@@ -265,17 +342,17 @@ export function createMarquee(element: HTMLElement, options: MarqueeOptions = {}
     resizeObserver?.disconnect();
     resizeObserver = null;
 
-    // Remove cloned child
-    if (clonedChild?.parentNode === element) {
-      element.removeChild(clonedChild);
-    }
-    clonedChild = null;
+    // Remove all cloned children
+    removeClones();
     originalChild = null;
 
-    // Clean up styles
-    element.style.willChange = "";
+    // Clean up styles (only if we applied them)
+    if (applyStyles) {
+      element.style.willChange = "";
+      element.style.display = "";
+      element.style.minWidth = "";
+    }
     element.style.transform = "";
-    element.style.minWidth = "";
   }
 
   return {

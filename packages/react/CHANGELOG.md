@@ -1,5 +1,12 @@
 # @townhall-gg/marquee-react
 
+## 0.2.1
+
+### Patch Changes
+
+- Updated dependencies
+  - @townhall-gg/marquee@0.2.1
+
 ## 0.2.0
 
 ### Minor Changes

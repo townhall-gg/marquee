@@ -23,6 +23,12 @@ export interface MarqueeOptions {
   manualInit?: boolean;
   /** Auto-clone the child element for seamless loop. Default: true */
   autoClone?: boolean;
+  /**
+   * Apply required layout styles (display: flex, min-width: max-content, will-change: transform).
+   * Set to false if you want to handle container styles yourself.
+   * Default: true
+   */
+  applyStyles?: boolean;
 }
 
 /**

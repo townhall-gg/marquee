@@ -1,5 +1,15 @@
 # @townhall-gg/marquee
 
+## 0.2.1
+
+### Patch Changes
+
+- Fix duplicate ID issue: cloned elements now have all `id` attributes removed
+- Fix accessibility: cloned content is now marked with `aria-hidden="true"` for screen readers
+- Add `applyStyles` option to opt-out of automatic layout styles (`display: flex`, `min-width: max-content`)
+- Auto-fill narrow content: when content is narrower than container, multiple clones are created to prevent gaps
+- Recalculate clones on container resize for responsive behavior
+
 ## 0.2.0
 
 ### Minor Changes
