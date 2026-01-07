@@ -1,6 +1,0 @@
-{
-  "version": 3,
-  "sources": [],
-  "sections": [
-    {"offset": {"line": 4, "column": 0}, "map": {"version":3,"sources":["file:///C:/Users/Work/Downloads/th.gg/townhall/marquee/demo/app/not-found.tsx"],"sourcesContent":["export default function NotFound() {\n  return (\n    <div className=\"min-h-screen flex items-center justify-center\">\n      <div className=\"text-center\">\n        <h1 className=\"text-6xl font-bold mb-4\">404</h1>\n        <p className=\"text-xl\">Page not found</p>\n      </div>\n    </div>\n  );\n}\n"],"names":[],"mappings":";;;;;;AAAe,SAAS;IACtB,qBACE,6WAAC;QAAI,WAAU;kBACb,cAAA,6WAAC;YAAI,WAAU;;8BACb,6WAAC;oBAAG,WAAU;8BAA0B;;;;;;8BACxC,6WAAC;oBAAE,WAAU;8BAAU;;;;;;;;;;;;;;;;;AAI/B"}}]
-}
