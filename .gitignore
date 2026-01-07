@@ -5,6 +5,10 @@ node_modules/
 dist/
 *.tsbuildinfo
 
+# Next.js
+.next/
+out/
+
 # IDE
 .idea/
 *.swp
@@ -26,3 +30,10 @@ coverage/
 # Misc
 .env
 .env.local
+.env*.local
+
+# Turbo
+.turbo/
+
+# Vercel
+.vercel/

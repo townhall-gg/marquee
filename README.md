@@ -224,4 +224,4 @@ Works in all modern browsers that support [Web Animations API](https://caniuse.c
 
 ## License
 
-MIT © [Townhall](https://th.gg)
+MIT © [Townhall](https://townhall.gg)

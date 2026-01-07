@@ -26,4 +26,4 @@ function App() {
 
 ## License
 
-MIT © [Townhall](https://th.gg)
+MIT © [Townhall](https://townhall.gg)

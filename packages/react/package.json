@@ -1,6 +1,6 @@
 {
   "name": "@townhall-gg/marquee-react",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "React bindings for @townhall-gg/marquee",
   "keywords": [
     "animation",
@@ -10,7 +10,7 @@
     "waapi"
   ],
   "license": "MIT",
-  "author": "Townhall <hello@th.gg>",
+  "author": "Townhall <hello@townhall.gg>",
   "repository": {
     "type": "git",
     "url": "https://github.com/townhall-gg/marquee"

@@ -242,7 +242,7 @@ export default function DemoPage() {
               GitHub
             </a>
             <a
-              href="https://th.gg"
+              href="https://townhall.gg"
               target="_blank"
               rel="noopener noreferrer"
               className="opacity-70 hover:opacity-100 transition-opacity"
@@ -622,7 +622,7 @@ useLenis(({ velocity }) => {
 
           <p className="mono text-sm text-[rgba(255,255,255,0.4)]">
             Made with ❤️ by{" "}
-            <a href="https://th.gg" className="underline hover:text-white transition-colors">
+            <a href="https://townhall.gg" className="underline hover:text-white transition-colors">
               Townhall
             </a>
           </p>

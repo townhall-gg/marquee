@@ -67,15 +67,23 @@ export function createMarquee(element: HTMLElement, options: MarqueeOptions = {}
       return;
     }
 
+    // Duration is based on scrolling one full content width
     const duration = pxPerSecond(childWidth, state.speed);
     if (duration <= 0 || !isFinite(duration)) return;
 
-    // Use percentage-based keyframes for seamless looping
-    // Content is duplicated, so -50% = one full content width
+    // Use pixel-based keyframes for precise seamless looping
+    // We translate exactly one content width, then the animation loops
+    const translateAmount = childWidth;
     const keyframes: Keyframe[] =
       dir === 1
-        ? [{ transform: "translate3d(0%, 0, 0)" }, { transform: "translate3d(-50%, 0, 0)" }]
-        : [{ transform: "translate3d(-50%, 0, 0)" }, { transform: "translate3d(0%, 0, 0)" }];
+        ? [
+            { transform: "translate3d(0px, 0, 0)" },
+            { transform: `translate3d(-${translateAmount}px, 0, 0)` },
+          ]
+        : [
+            { transform: `translate3d(-${translateAmount}px, 0, 0)` },
+            { transform: "translate3d(0px, 0, 0)" },
+          ];
 
     animation = element.animate(keyframes, {
       duration,

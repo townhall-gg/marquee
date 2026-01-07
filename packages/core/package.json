@@ -1,6 +1,6 @@
 {
   "name": "@townhall-gg/marquee",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Blazing-fast marquee using Web Animations API",
   "keywords": [
     "animation",
@@ -11,7 +11,7 @@
     "web-animations-api"
   ],
   "license": "MIT",
-  "author": "Townhall <hello@th.gg>",
+  "author": "Townhall <hello@townhall.gg>",
   "repository": {
     "type": "git",
     "url": "https://github.com/townhall-gg/marquee"

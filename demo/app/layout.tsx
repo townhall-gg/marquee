@@ -6,11 +6,11 @@ export const metadata: Metadata = {
   description:
     "A blazing-fast, buttery-smooth marquee using Web Animations API. Zero dependencies, accessible, and ready for production.",
   keywords: ["marquee", "react", "animation", "waapi", "web animations api", "townhall"],
-  authors: [{ name: "Townhall", url: "https://th.gg" }],
+  authors: [{ name: "Townhall", url: "https://townhall.gg" }],
   openGraph: {
     title: "Marquee Demo | @townhall-gg/marquee",
     description: "A blazing-fast, buttery-smooth marquee using Web Animations API.",
-    url: "https://marquee.th.gg",
+    url: "https://marquee.townhall.gg",
     siteName: "Townhall Marquee",
     type: "website",
   },
