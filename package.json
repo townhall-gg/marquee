@@ -1,0 +1,25 @@
+{
+  "name": "@townhall-gg/marquee-monorepo",
+  "version": "0.0.0",
+  "private": true,
+  "description": "A blazing-fast, buttery-smooth marquee using Web Animations API",
+  "scripts": {
+    "build": "pnpm -r --filter=!demo build",
+    "dev": "pnpm -r --parallel dev",
+    "demo": "pnpm build && pnpm --filter=demo dev",
+    "clean": "pnpm -r clean",
+    "typecheck": "pnpm -r typecheck",
+    "changeset": "changeset",
+    "version:packages": "changeset version",
+    "release": "pnpm build && changeset publish"
+  },
+  "devDependencies": {
+    "@changesets/cli": "^2.27.0",
+    "tsup": "^8.0.0",
+    "typescript": "^5.3.0"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "packageManager": "pnpm@9.0.0"
+}

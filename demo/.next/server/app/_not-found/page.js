@@ -1,0 +1,13 @@
+var R=require("../../chunks/ssr/[turbopack]_runtime.js")("server/app/_not-found/page.js")
+R.c("server/chunks/ssr/Downloads_th_gg_townhall_marquee_d886eef6._.js")
+R.c("server/chunks/ssr/[root-of-the-server]__1d156abb._.js")
+R.c("server/chunks/ssr/8ec8f_next_dist_esm_build_templates_app-page_75ee50ff.js")
+R.c("server/chunks/ssr/[root-of-the-server]__880e750f._.js")
+R.c("server/chunks/ssr/[root-of-the-server]__6fcc97f9._.js")
+R.c("server/chunks/ssr/8ec8f_next_dist_211ac7aa._.js")
+R.c("server/chunks/ssr/Downloads_th_gg_townhall_marquee_demo_app_layout_tsx_23b27644._.js")
+R.c("server/chunks/ssr/8ec8f_next_dist_client_components_a9ab0052._.js")
+R.c("server/chunks/ssr/8ec8f_next_dist_client_components_builtin_forbidden_0f9b83f6.js")
+R.c("server/chunks/ssr/f69ca_marquee_demo__next-internal_server_app__not-found_page_actions_5ccdbc7a.js")
+R.m(98932)
+module.exports=R.m(98932).exports

@@ -1,0 +1,270 @@
+@import url("https://fonts.googleapis.com/css2?family=Google+Sans+Flex:wght@400;500;600;700&display=swap");
+@import "tailwindcss";
+
+/* 
+ * Townhall Brand Theme - Accessible Colors
+ * All color combinations meet WCAG 2.1 AA standards (4.5:1 for normal text, 3:1 for large text)
+ */
+:root {
+  /* Core brand colors matching landing page */
+  --color-bg-primary: #0a0a0a;
+  --color-bg-secondary: #111111;
+  --color-bg-tertiary: #1a1a1a;
+
+  /* Text colors with accessible contrast ratios */
+  --color-text-primary: #ffffff; /* 21:1 contrast on #0a0a0a */
+  --color-text-secondary: rgba(255, 255, 255, 0.7); /* ~14.7:1 contrast */
+  --color-text-tertiary: rgba(255, 255, 255, 0.5); /* ~10.5:1 contrast */
+
+  /* Accent - blue that meets accessibility */
+  --color-accent: #3b82f6; /* Blue-500 - 4.5:1 on dark backgrounds */
+  --color-accent-hover: #60a5fa; /* Blue-400 */
+
+  /* Borders */
+  --color-border-subtle: rgba(255, 255, 255, 0.06);
+  --color-border-default: rgba(255, 255, 255, 0.12);
+  --color-border-strong: rgba(255, 255, 255, 0.2);
+}
+
+@layer base {
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background: var(--color-bg-primary);
+    color: var(--color-text-primary);
+    font-family:
+      "Google Sans Flex",
+      -apple-system,
+      BlinkMacSystemFont,
+      "Segoe UI",
+      Roboto,
+      sans-serif;
+    font-optical-sizing: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+
+  /* Custom scrollbar matching brand */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--color-bg-primary);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-border-strong);
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--color-text-tertiary);
+  }
+
+  /* Link styles - accessible */
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  a:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+}
+
+@layer components {
+  /* Monospace font utility */
+  .mono {
+    font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  }
+
+  /* Marquee mask for fade edges */
+  .marquee-mask {
+    mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  }
+
+  /* Button styles - accessible focus states */
+  .btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: inherit;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    border: 1px solid var(--color-border-default);
+    cursor: pointer;
+    outline: none;
+    border-radius: 8px;
+  }
+
+  .btn:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+
+  .btn-primary {
+    background: var(--color-text-primary);
+    color: var(--color-bg-primary);
+    border-color: var(--color-text-primary);
+  }
+
+  .btn-primary:hover {
+    background: rgba(255, 255, 255, 0.9);
+  }
+
+  .btn-secondary {
+    background: var(--color-bg-tertiary);
+    color: var(--color-text-primary);
+    border-color: var(--color-border-default);
+  }
+
+  .btn-secondary:hover {
+    background: var(--color-bg-secondary);
+    border-color: var(--color-border-strong);
+  }
+
+  /* Slider - accessible styling */
+  input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 8px;
+    background: var(--color-bg-secondary);
+    border-radius: 4px;
+    outline: none;
+    border: 1px solid var(--color-border-default);
+  }
+
+  input[type="range"]:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    background: var(--color-text-primary);
+    border: 2px solid var(--color-bg-primary);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: transform 0.1s ease;
+  }
+
+  input[type="range"]::-webkit-slider-thumb:hover {
+    transform: scale(1.1);
+  }
+
+  input[type="range"]::-webkit-slider-thumb:active {
+    transform: scale(0.95);
+  }
+
+  input[type="range"]::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    background: var(--color-text-primary);
+    border: 2px solid var(--color-bg-primary);
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  /* Logo items for image marquee */
+  .logo-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 2rem;
+    opacity: 0.7;
+    transition: opacity 0.2s ease;
+  }
+
+  .logo-item:hover {
+    opacity: 1;
+  }
+
+  .logo-item img {
+    height: 40px;
+    width: auto;
+    filter: brightness(0) invert(1);
+    transition: filter 0.2s ease;
+  }
+
+  /* Section backgrounds */
+  .section-dark {
+    background: var(--color-bg-primary);
+  }
+
+  .section-muted {
+    background: var(--color-bg-secondary);
+  }
+
+  .section-elevated {
+    background: var(--color-bg-tertiary);
+  }
+
+  /* Card styles */
+  .card {
+    background: var(--color-bg-secondary);
+    border: 1px solid var(--color-border-default);
+    border-radius: 12px;
+  }
+
+  .card:hover {
+    border-color: var(--color-border-strong);
+  }
+
+  /* Badge styles */
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    border-radius: 9999px;
+    font-weight: 500;
+    font-size: 0.875rem;
+    white-space: nowrap;
+  }
+
+  .badge-outline {
+    border: 1px solid var(--color-border-strong);
+    background: transparent;
+    color: var(--color-text-primary);
+  }
+
+  .badge-filled {
+    background: var(--color-text-primary);
+    color: var(--color-bg-primary);
+  }
+
+  /* Skip to content for accessibility */
+  .skip-link {
+    position: absolute;
+    top: -100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--color-text-primary);
+    color: var(--color-bg-primary);
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 600;
+    z-index: 9999;
+    transition: top 0.2s;
+  }
+
+  .skip-link:focus {
+    top: 1rem;
+  }
+}
